@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Your Bujo{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}" type='text/css'>
+{% endblock %}
+
+{% block content %}
+    <ul>
+        <li> Home </li>
+        <li> Profile </li>
+        <li> Key </li>
+        <li> This Week </li>
+        <li> Today </li>
+    </ul>
+{% endblock %}
