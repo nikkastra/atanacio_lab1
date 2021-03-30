@@ -8,6 +8,6 @@ urlpatterns = [
     path('home', index_card_view, name = 'home'),
     path('profile', profile, name = 'profile'),
     path('key', key, name = 'key'),
-    path('thisweek', thisweek, name = 'thisweek'),
+    path('this_week', thisweek, name = 'thisweek'),
     path('today', today, name = 'today')
 ]

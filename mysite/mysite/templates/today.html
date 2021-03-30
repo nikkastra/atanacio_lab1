@@ -7,8 +7,17 @@
         {% block styles %}{% endblock %}
     </head>
     <body>
+    	<h1> Today </h1>
+    	<p> 03.30.TUES </p>
+    	<p> ● lab 1 bujo </p>
         {% block content %}{% endblock %}
-
+        <ul>
+        	<li> <a href="{% url 'home'%}"> Home </a> </li>
+        	<li> <a href="{% url 'profile'%}"> Profile </a> </li>
+        	<li> <a href="{% url 'key'%}"> Key </a> </li>
+        	<li> <a href="{% url 'thisweek'%}"> This Week </a> </li>
+        	<li> <a href="{% url 'today'%}"> Today </a> </li>
+    	</ul>
         {% block scripts %}{% endblock %}
     </body>
 </html>

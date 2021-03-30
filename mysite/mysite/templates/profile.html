@@ -17,6 +17,13 @@
         	<li> di raw masyadong masarap pero pwede na </li>
         </ul>
         <img src="{% static 'img/picturekoparasalahat.jpg' %}" />
+        <ul>
+       	 	<li> <a href="{% url 'home'%}"> Home </a> </li>
+        	<li> <a href="{% url 'profile'%}"> Profile </a> </li>
+        	<li> <a href="{% url 'key'%}"> Key </a> </li>
+        	<li> <a href="{% url 'thisweek'%}"> This Week </a> </li>
+        	<li> <a href="{% url 'today'%}"> Today </a> </li>
+    	</ul>
         {% block scripts %}{% endblock %}
     </body>
 </html>

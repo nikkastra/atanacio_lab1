@@ -7,8 +7,19 @@
         {% block styles %}{% endblock %}
     </head>
     <body>
+    	<h1> This Week </h1>
+    	<p> 03.29.MON - 04.04.SUN </p>
+    	<p> - relax, holy week ngayon </p>
+    	<p> ● minecraft </p>
+    	<p> - this is fake of course, go do your reqs </p>
+    	<ul>
+        	<li> <a href="{% url 'home'%}"> Home </a> </li>
+        	<li> <a href="{% url 'profile'%}"> Profile </a> </li>
+        	<li> <a href="{% url 'key'%}"> Key </a> </li>
+        	<li> <a href="{% url 'thisweek'%}"> This Week </a> </li>
+        	<li> <a href="{% url 'today'%}"> Today </a> </li>
+    	</ul>
         {% block content %}{% endblock %}
-
         {% block scripts %}{% endblock %}
     </body>
 </html>
