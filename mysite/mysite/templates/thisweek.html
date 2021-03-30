@@ -3,17 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name='viewport' content='width=device-width'>
-        <title>{% block title %}Your Bujo{% endblock %}</title>
+        <title>{% block title %}This Week{% endblock %}</title>
         {% block styles %}{% endblock %}
     </head>
     <body>
-        <h1> YOUR BULLET JOURNAL </h1>
-        <form action="/home" method="post">
-            {% csrf_token %}
-            {{form}}
-            <input type="Submit" value="Submit">
-        </form>
         {% block content %}{% endblock %}
+
         {% block scripts %}{% endblock %}
     </body>
 </html>

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}Your Bujo{% endblock %}
+{% load static %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}" type='text/css'>
@@ -9,10 +8,11 @@
 
 {% block content %}
     <ul>
-        <li> Home </li>
-        <li> Profile </li>
-        <li> Key </li>
-        <li> This Week </li>
-        <li> Today </li>
+        <li> <a href="{% url 'home'%}"> Home </a> </li>
+        <li> <a href="{% url 'profile'%}"> Profile </a> </li>
+        <li> <a href="{% url 'key'%}"> Key </a> </li>
+        <li> <a href="{% url 'thisweek'%}"> This Week </a> </li>
+        <li> <a href="{% url 'today'%}"> Today </a> </li>
     </ul>
+{% include 'profile.html' %}
 {% endblock %}

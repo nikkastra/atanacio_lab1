@@ -4,10 +4,10 @@ from django.views import View
 
 from .forms import IndexCardForm
 
-
 class HomePageView(View):
     def get(self, request):
-        return(HttpResponse("putanginamo"))
+    	form = IndexCardForm()
+    	return render(request, 'index.html', {'form': form})
 
 
 def index_card_view(request):
@@ -15,10 +15,26 @@ def index_card_view(request):
 		form = IndexCardForm(request.POST)
 		if form.is_valid():
 			return HttpResponse(
-				'Hello, {}! Today is going to be a great day!'.format(
+				'Hello, {}! Today is gonna be a great day!'.format(
 					form.cleaned_data['name']
 					)
 				)
 	else:
 	    form = IndexCardForm()
 	return render(request, 'index.html', {'form': form})
+
+
+def profile(request):
+	return render(request, 'profile.html')
+
+
+def key(request):
+	return render(request, 'key.html')
+
+
+def thisweek(request):
+	return render(request, 'thisweek.html')
+
+
+def today(request):
+	return render(request, 'today.html')
