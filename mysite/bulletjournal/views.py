@@ -4,19 +4,22 @@ from django.views import View
 
 from .forms import *
 
+name_dict = {}
+
 class HomePageView(View):
     def get(self, request):
     	form = IndexCardForm()
     	return render(request, 'base.html', {'form': form})
 
 def index_card_view(request):
-	if request.method == 'POST':
+	global name_dict
+	if len(name_dict) == 1:
+		return render(request, 'base.html', name_dict)
+	elif request.method == 'POST':
 		form = IndexCardForm(request.POST)
 		if form.is_valid():
-			return render(request,'base.html', {
-				'name':form.cleaned_data['name']
-				}
-				)
+			name_dict['name'] = form.cleaned_data['name']
+			return render(request,'base.html', name_dict)
 	else:
 	    form = IndexCardForm()
 	return render(request, 'base.html', {'form': form})
