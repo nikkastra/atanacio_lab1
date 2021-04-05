@@ -8,22 +8,17 @@
     </head>
     <body>
         <h1> YOUR BULLET JOURNAL </h1>
-        {% if name %}
-            <p>Hello, {{name}}! Today is gonna be a great day!</p>
+        {% if is_it_valid == 'True' %}
+            <p> 'Hello, {}! Today is gonna be a great day!'.format(
+                    form.cleaned_data['name']) </p>
         {% else %}
-            <form action="/home" method="post" id="nickname">
+            <form action="/home" method="post">
                 {% csrf_token %}
                 {{form}}
                 <input type="Submit" value="Submit">
             </form>
         {% endif %}
-        <ul>
-            <li> <a href="{% url 'home'%}"> Home </a> </li>
-            <li> <a href="{% url 'profile'%}"> Profile </a> </li>
-            <li> <a href="{% url 'key'%}"> Key </a> </li>
-            <li> <a href="{% url 'thisweek'%}"> This Week </a> </li>
-            <li> <a href="{% url 'today'%}"> Today </a> </li>
-        </ul>
+        {% block content %}{% endblock %}
         {% block scripts %}{% endblock %}
     </body>
 </html>
