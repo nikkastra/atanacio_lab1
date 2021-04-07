@@ -7,7 +7,9 @@ from django.views.generic.detail import DetailView
 from .forms import *
 from .models import *
 
+
 name_dict = {}
+
 
 class NameListView(ListView):
 	model = Name
@@ -19,20 +21,25 @@ class NameDetailView(DetailView):
 
 class HomePageView(View):
     def get(self, request):
-    	form = IndexCardForm()
+    	form = FirstName()
     	return render(request, 'index.html', {'form': form})
 
-def index_card_view(request):
-	global name_dict
-	if len(name_dict) == 1:
+def home(request):
+	if len(name_dict)==1:
 		return render(request, 'index.html', name_dict)
 	elif request.method == 'POST':
-		form = IndexCardForm(request.POST)
+		form = FirstName(request.POST)
 		if form.is_valid():
 			name_dict['name'] = form.cleaned_data['name']
-			return render(request,'index.html', name_dict)
+			try:
+				if Name.objects.get(name=name_dict['name']) in Name.objects.all():
+					return render(request,'index.html', name_dict)
+			except:
+				person_info = Name(name=name_dict['name'], nickname='no nickname', bio='no bio')
+				person_info.save()
+			return render(request, 'index.html', name_dict)
 	else:
-	    form = IndexCardForm()
+	    form = FirstName()
 	return render(request, 'index.html', {'form': form})
 
 
