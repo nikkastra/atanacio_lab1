@@ -3,20 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name='viewport' content='width=device-width'>
-        <title>{% block title %}Your Bujo{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         {% block styles %}{% endblock %}
     </head>
     <body>
-        <h1> YOUR BULLET JOURNAL </h1>
-        {% if name %}
-            <p>Hello, {{name}}! Today is gonna be a great day!</p>
-        {% else %}
-            <form action="/home" method="post" id="nickname">
-                {% csrf_token %}
-                {{form}}
-                <input type="Submit" value="Submit">
-            </form>
-        {% endif %}
+        {% block content %}
+        {% endblock %}
         <ul>
             <li> <a href="{% url 'home'%}"> Home </a> </li>
             <li> <a href="{% url 'profile'%}"> Profile </a> </li>

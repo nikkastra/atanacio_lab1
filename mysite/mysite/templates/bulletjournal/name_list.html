@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Names{% endblock %}
+
+{% block content %}
+<ul>
+	{% if object_list %}
+	{% for name in object_list %}
+		<li>
+			<a href="{{name.get_absolute_url}}">{{name.name}}</a>
+		</li>
+	{% endfor %}
+	{% else %}
+		<h1> wala pa </h1>
+	{% endif %}
+</ul>
+{% endblock %}

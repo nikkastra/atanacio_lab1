@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 
 {% load static %}
-
+{% block title %} Your Bujo {% endblock %}
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}" type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}" type='text/css'>
 {% endblock %}
 
 {% block content %}
-    
+    <h1> YOUR BULLET JOURNAL </h1>
+        {% if name %}
+            <p>Hello, {{name}}! Today is gonna be a great day!</p>
+        {% else %}
+            <form action="/home" method="post" id="nickname">
+                {% csrf_token %}
+                {{form}}
+                <input type="Submit" value="Submit">
+            </form>
+        {% endif %}
 {% endblock %}

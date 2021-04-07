@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name='viewport' content='width=device-width'>
-        <title>{% block title %}Key{% endblock %}</title>
-        {% block styles %}{% endblock %}
-    </head>
-    <body>
-    	<h1> Key </h1>
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %} Keys {% endblock %}
+{% block styles %}
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}" type='text/css'>
+{% endblock %}
+
+{% block content %}
+    <h1> Key </h1>
     	<p> ● Tasks: things you have to do </p>
     	<p> - Notes: things you don't want to forget </p>
     	<p> ◦ Events: noteworth moments in time </p>
     	<p> ● Task incomplete </p>
     	<p> x Task complete </p>
-        {% block content %}{% endblock %}
-        <ul>
-        	<li> <a href="{% url 'home'%}"> Home </a> </li>
-        	<li> <a href="{% url 'profile'%}"> Profile </a> </li>
-        	<li> <a href="{% url 'key'%}"> Key </a> </li>
-        	<li> <a href="{% url 'thisweek'%}"> This Week </a> </li>
-        	<li> <a href="{% url 'today'%}"> Today </a> </li>
-    	</ul>
-        {% block scripts %}{% endblock %}
-    </body>
-</html>
+{% endblock %}

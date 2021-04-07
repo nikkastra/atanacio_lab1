@@ -1,29 +1,17 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name='viewport' content='width=device-width'>
-        <title>{% block title %}Profile{% endblock %}</title>
-        {% block styles %}{% endblock %}
-    </head>
-    <body>
-        {% block content %}{% endblock %}
-        <h1> Profile </h1>
+{% load static %}
+{% block title %} Profile {% endblock %}
+{% block styles %}
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}" type='text/css'>
+{% endblock %}
+
+{% block content %}
+    <h1> Profile </h1>
         <ul>
         	<li> Franz Leonard Atanacio </li>
         	<li> "pogi" </li>
         	<li> di raw masyadong masarap pero pwede na </li>
         </ul>
         <img src="{% static 'img/picturekoparasalahat.jpg' %}" />
-        <ul>
-       	 	<li> <a href="{% url 'home'%}"> Home </a> </li>
-        	<li> <a href="{% url 'profile'%}"> Profile </a> </li>
-        	<li> <a href="{% url 'key'%}"> Key </a> </li>
-        	<li> <a href="{% url 'thisweek'%}"> This Week </a> </li>
-        	<li> <a href="{% url 'today'%}"> Today </a> </li>
-    	</ul>
-        {% block scripts %}{% endblock %}
-    </body>
-</html>
+{% endblock %}
