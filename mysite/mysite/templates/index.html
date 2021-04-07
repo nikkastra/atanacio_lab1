@@ -11,7 +11,7 @@
         {% if name %}
             <p>Hello, {{name}}! Today is gonna be a great day!</p>
         {% else %}
-            <form action="/home" method="post" id="nickname">
+            <form action="/home" method="post">
                 {% csrf_token %}
                 {{form}}
                 <input type="Submit" value="Submit">

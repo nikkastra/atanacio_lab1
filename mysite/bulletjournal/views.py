@@ -25,17 +25,17 @@ class HomePageView(View):
     	return render(request, 'index.html', {'form': form})
 
 def home(request):
-	if len(name_dict)==1:
+	if len(name_dict) == 1:
 		return render(request, 'index.html', name_dict)
 	elif request.method == 'POST':
-		form = FirstName(request.POST)
+		form=FirstName(request.POST)
 		if form.is_valid():
 			name_dict['name'] = form.cleaned_data['name']
 			try:
 				if Name.objects.get(name=name_dict['name']) in Name.objects.all():
 					return render(request,'index.html', name_dict)
 			except:
-				person_info = Name(name=name_dict['name'], nickname='no nickname', bio='no bio')
+				person_info = Name(name=name_dict['name'])
 				person_info.save()
 			return render(request, 'index.html', name_dict)
 	else:
@@ -44,7 +44,17 @@ def home(request):
 
 
 def profile(request):
-	return render(request, 'profile.html')
+	if request.method == 'POST':
+		form = NicknameAndBio(request.POST)
+		if form.is_valid():
+			info = Name.objects.get(name=name_dict['name'])
+			info.nickname = form.cleaned_data['nickname']
+			info.bio = form.cleaned_data['bio']
+			new_info = info.save()
+			return redirect('name_detail', pk=new_info)
+	else:
+		form = NicknameAndBio()
+	return render(request, 'profile.html', info_dict)
 
 
 def key(request):
