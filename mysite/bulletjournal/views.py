@@ -44,16 +44,25 @@ def home(request):
 
 
 def profile(request):
-	if request.method == 'POST':
-		form = NicknameAndBio(request.POST)
+	global name_dict
+	info = Name.objects.get(name=name_dict['name'])
+	picture = info.image
+	nickname = info.nickname
+	bio = info.bio
+	if request.method == "POST":
+		form = Picture(request.POST, request.FILES)
 		if form.is_valid():
-			info = Name.objects.get(name=name_dict['name'])
-			info.nickname = form.cleaned_data['nickname']
-			info.bio = form.cleaned_data['bio']
-			new_info = info.save()
-			return redirect('name_detail', pk=new_info)
+			form.save()
+			test = Name.objects.get(name="test")
+			info.image = test.image
+			picture = info.image
+			info.save()
+			test.delete()
+			info_dict = {'name': name_dict['name'],'nickname': nickname, 'bio': bio, 'picture':picture, 'form':form}
+			return render(request, 'profile.html', info_dict)
 	else:
-		form = NicknameAndBio()
+		form = Picture()
+		info_dict = {'name': name_dict['name'],'nickname': nickname, 'bio': bio, 'picture':picture, 'form':form}
 	return render(request, 'profile.html', info_dict)
 
 

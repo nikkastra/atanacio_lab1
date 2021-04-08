@@ -10,6 +10,6 @@ urlpatterns = [
     path('key', key, name = 'key'),
     path('this_week', thisweek, name = 'thisweek'),
     path('today', today, name = 'today'),
-    path('name', NameListView.as_view(), name = 'name_list'),
-    path('name1/<int:pk>', NameDetailView.as_view(), name = 'name_detail')
+    path('names', NameListView.as_view(), name = 'name_list'),
+    path('name/<int:pk>', NameDetailView.as_view(), name = 'name_detail')
 ]

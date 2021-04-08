@@ -8,10 +8,15 @@
 
 {% block content %}
     <h1> Profile </h1>
-    	<img src="{% static 'img/picturekoparasalahat.jpg' %}" />
+    	<img src="{{picture}}" alt="hindi ako lilitaw" />
+    	<form method="POST" enctype="multipart/form-data">
+    		{% csrf_token %}
+    		{{ form.as_p }}
+    		<button type='submit'>Change</button>
+    	</form>
         <ul>
-        	<li> Franz Leonard Atanacio </li>
-        	<li> "pogi" </li>
-        	<li> di raw masyadong masarap pero pwede na </li>
+        	<li> {{name}} </li>
+        	<li> {{nickname}} </li>
+        	<li> {{bio}} </li>
         </ul>
 {% endblock %}
