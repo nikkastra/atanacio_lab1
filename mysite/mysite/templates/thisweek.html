@@ -9,7 +9,38 @@
 {% block content %}
     <h1> This Week </h1>
     	<p> 03.29.MON - 04.04.SUN </p>
-    	<p> - relax, holy week ngayon </p>
-    	<p> ● minecraft </p>
-    	<p> - this is fake of course, go do your reqs </p>
+    		<ul>
+    		{% if the_tasks %}
+				{% for x in the_tasks %}
+					{{forloop.counter}}
+					<li>
+						{{x}}
+						<button type='button' onclick='document.getElementById("edit").open="open"'>Edit</button>
+						<button type='button' onclick='document.getElementById("delete").open="open"'>Delete</button>
+					</li>
+				{% endfor %}
+			{% endif %}
+			</ul>
+		<button type='button' onclick='document.getElementById("add").open="open"'>Add Item</button>
+		<dialog id="add">
+	    	<form action='{% url "thisweek" %}' method='post'>
+	    		{% csrf_token %}
+	    		{{form1}}
+	    		<input type="Submit" value="Add Task">
+	    	</form>
+    	</dialog>
+    	<dialog id="edit">
+	    	<form action='{% url "thisweek" %}' method='post'>
+	    		{% csrf_token %}
+	    		{{form2}}
+	    		<input type="Submit" value="Update">
+	    	</form>
+    	</dialog>
+    	<dialog id="delete">
+	    	<form action='{% url "thisweek" %}' method='post'>
+	    		{% csrf_token %}
+	    		{{form}}
+	    		<input type="Submit" value="Add Task">
+	    	</form>
+    	</dialog>
 {% endblock %}

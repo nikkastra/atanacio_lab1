@@ -28,5 +28,8 @@ class Key(models.Model):
 
 class Tasks(models.Model):
 	name = models.ForeignKey(Name, on_delete=models.CASCADE)
-	key = models.CharField(max_length=2)
+	key = models.ForeignKey(Key, on_delete=models.CASCADE)
 	task = models.CharField(max_length=100)
+
+	def __str__(self):
+		return '{}: {}'.format(self.key, self.task)

@@ -23,3 +23,14 @@ class Keys(forms.ModelForm):
 	class Meta:
 		model = Key
 		fields = ['key', 'description']
+
+
+class Task(forms.ModelForm):
+	class Meta:
+		model = Tasks
+		fields = ['key', 'task']
+
+
+class EditTask(forms.Form):
+
+	edittask = forms.CharField(label='', max_length=100, required=False)

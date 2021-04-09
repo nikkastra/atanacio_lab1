@@ -9,6 +9,8 @@ from .models import *
 
 
 name_dict = {}
+#oh la la wow wow wee wa king in the castle king in the castle i have a chair i
+#have a chair o go to this go to this hey king in the castle
 
 
 class NameListView(ListView):
@@ -107,7 +109,39 @@ def key(request):
 
 
 def thisweek(request):
-	return render(request, 'thisweek.html')
+	this_dict = {}
+	new_task = ''
+	if request.method == 'POST':
+		form1 = Task(request.POST)
+		form2 = EditTask(request.POST)
+		if form1.is_valid() or form2.is_valid():
+			x = ''
+			for y in request.POST:
+				x = y
+			if x == 'task':
+				new_task = Tasks(name=Name.objects.get(name=name_dict['name']), key=form1.cleaned_data['key'], task=form1.cleaned_data['task'])
+				new_task.save()
+				the_tasks = [str(x) for x in Tasks.objects.all()]
+				this_dict['form1'] = form1
+				this_dict['form2'] = form2
+				this_dict['the_tasks'] = the_tasks
+				return render(request, 'thisweek.html', this_dict)
+			elif x == 'edittask':
+				new_task.task = request.POST['edittask']
+				new_task.save()
+				the_tasks = [str(x) for x in Tasks.objects.all()]
+				this_dict['form1'] = form1
+				this_dict['form2'] = form2
+				this_dict['the_tasks'] = the_tasks
+				return render(request, 'thisweek.html', this_dict)
+	else:
+		form1 = Task()
+		form2 = EditTask()
+		the_tasks = [str(x) for x in Tasks.objects.all()]
+		this_dict['form1'] = form1
+		this_dict['form2'] = form2
+		this_dict['the_tasks'] = the_tasks
+	return render(request, 'thisweek.html', this_dict)
 
 
 def today(request):
