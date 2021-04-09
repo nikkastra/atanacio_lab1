@@ -19,9 +19,14 @@
 			<p> No keys. </p>
 		{% endif %}
     </ul>
-    <form action="{% url 'key'%}" method="post">
-            {% csrf_token %}
-            {{form}}
-        <input type="Submit" value="Add">
-    </form>
+    <button type="button" onclick="document.getElementById('form').open='open'"> Add Key </button>
+    <dialog id="form">
+    	<form action="{% url 'key'%}" method="post">
+        	{% csrf_token %}
+       		{{form}}
+        	<input type="Submit" value="Add">
+    	</form>
+    </dialog>
+{% endblock %}
+{% block scripts %}
 {% endblock %}
