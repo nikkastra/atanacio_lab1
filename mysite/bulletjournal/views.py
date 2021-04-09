@@ -50,19 +50,40 @@ def profile(request):
 	nickname = info.nickname
 	bio = info.bio
 	if request.method == "POST":
-		form = Picture(request.POST, request.FILES)
-		if form.is_valid():
-			form.save()
-			test = Name.objects.get(name="test")
-			info.image = test.image
-			picture = info.image
-			info.save()
-			test.delete()
-			info_dict = {'name': name_dict['name'],'nickname': nickname, 'bio': bio, 'picture':picture, 'form':form}
-			return render(request, 'profile.html', info_dict)
+		form1 = Picture(request.POST, request.FILES)
+		form2 = Nickname(request.POST)
+		form3 = Bio(request.POST)
+		if form1.is_valid() or form2.is_valid() or form3.is_valid():
+			if len(request.FILES) == 1:
+				form1.save()
+				test = Name.objects.get(name="test")
+				info.image = test.image
+				picture = info.image
+				info.save()
+				test.delete()
+				info_dict = {'name': name_dict['name'],'nickname': nickname, 'bio': bio, 'picture':picture, 'form1':form1, 'form2': form2, 'form3':form3}
+				return render(request, 'profile.html', info_dict)
+			elif len(request.POST) == 2:
+				x = ''
+				for y in request.POST:
+					x = y
+				if x == 'nickname':
+					info.nickname = request.POST['nickname']
+					nickname = info.nickname
+					info.save()
+					info_dict = {'name': name_dict['name'],'nickname': nickname, 'bio': bio, 'picture':picture, 'form1':form1, 'form2': form2, 'form3':form3}
+					return render(request, 'profile.html', info_dict)
+				else:
+					info.bio = request.POST['bio']
+					bio = info.bio
+					info.save()
+					info_dict = {'name': name_dict['name'],'nickname': nickname, 'bio': bio, 'picture':picture, 'form1':form1, 'form2': form2, 'form3':form3}
+					return render(request, 'profile.html', info_dict)
 	else:
-		form = Picture()
-		info_dict = {'name': name_dict['name'],'nickname': nickname, 'bio': bio, 'picture':picture, 'form':form}
+		form1 = Picture()
+		form2 = Nickname(use_required_attribute=False)
+		form3 = Bio(use_required_attribute=False)
+		info_dict = {'name': name_dict['name'],'nickname': nickname, 'bio': bio, 'picture':picture, 'form1':form1, 'form2': form2, 'form3':form3}
 	return render(request, 'profile.html', info_dict)
 
 

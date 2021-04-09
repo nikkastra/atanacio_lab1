@@ -5,10 +5,12 @@ class FirstName(forms.Form):
     name = forms.CharField(label="Hello! What is your name? ", max_length=100)
 
 
-class NicknameAndBio(forms.ModelForm):
-	class Meta:
-		model = Name
-		fields = ['nickname', 'bio']
+class Nickname(forms.Form):
+	nickname = forms.CharField(label="", max_length=100, required=False)
+
+
+class Bio(forms.Form):
+	bio = forms.CharField(label='', max_length=100, required=False)
 
 
 class Picture(forms.ModelForm):

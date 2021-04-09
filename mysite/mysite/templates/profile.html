@@ -11,12 +11,26 @@
     	<img src="{{picture}}" alt="hindi ako lilitaw" />
     	<form method="POST" enctype="multipart/form-data">
     		{% csrf_token %}
-    		{{ form.as_p }}
+    		{{ form1.as_p }}
     		<button type='submit'>Change</button>
     	</form>
         <ul>
         	<li> {{name}} </li>
-        	<li> {{nickname}} </li>
-        	<li> {{bio}} </li>
+        	<li>
+        		{{nickname}}
+        		<form action="/profile" method="POST" id='nickname'>
+        			{% csrf_token %}
+        			{{ form2 }}
+        			<input type='Submit' value='Edit' id='nickname'>
+        		</form>
+        	</li>
+        	<li>
+        		{{bio}}
+        		<form action="/profile" method="POST" id='bio'>
+        			{% csrf_token %}
+        			{{ form3 }}
+        			<input type='Submit' value='Edit' id='bio'>
+        		</form>
+        	</li>
         </ul>
 {% endblock %}
