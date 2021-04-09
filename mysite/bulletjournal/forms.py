@@ -17,3 +17,9 @@ class Picture(forms.ModelForm):
 	class Meta:
 		model = Name
 		fields = ['image']
+
+
+class Keys(forms.ModelForm):
+	class Meta:
+		model = Key
+		fields = ['key', 'description']

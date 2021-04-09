@@ -88,7 +88,22 @@ def profile(request):
 
 
 def key(request):
-	return render(request, 'key.html')
+	key_dict = {}
+	if request.method == 'POST':
+		form = Keys(request.POST)
+		if form.is_valid():
+			new_key = Key(key=form.cleaned_data['key'], description=form.cleaned_data['description'])
+			new_key.save()
+			key_dict = {'form': form}
+			the_keys = [str(x) for x in Key.objects.all()]
+			key_dict['the_keys'] = the_keys
+			return render(request, 'key.html', key_dict)
+	else:
+		form = Keys()
+		key_dict = {'form':form}
+		the_keys = [str(x) for x in Key.objects.all()]
+		key_dict['the_keys'] = the_keys
+	return render(request, 'key.html', key_dict)
 
 
 def thisweek(request):

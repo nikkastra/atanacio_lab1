@@ -18,7 +18,7 @@
         	<li> {{name}} </li>
         	<li>
         		{{nickname}}
-        		<form action="/profile" method="POST" id='nickname'>
+        		<form action="{% url 'profile' %}" method="POST" id='nickname'>
         			{% csrf_token %}
         			{{ form2 }}
         			<input type='Submit' value='Edit' id='nickname'>

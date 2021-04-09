@@ -8,9 +8,20 @@
 
 {% block content %}
     <h1> Key </h1>
-    	<p> ● Tasks: things you have to do </p>
-    	<p> - Notes: things you don't want to forget </p>
-    	<p> ◦ Events: noteworth moments in time </p>
-    	<p> ● Task incomplete </p>
-    	<p> x Task complete </p>
+    <ul>
+    	{% if the_keys %}
+			{% for x in the_keys %}
+				<li>
+					{{x}}
+				</li>
+			{% endfor %}
+		{% else %}
+			<p> No keys. </p>
+		{% endif %}
+    </ul>
+    <form action="{% url 'key'%}" method="post">
+            {% csrf_token %}
+            {{form}}
+        <input type="Submit" value="Add">
+    </form>
 {% endblock %}
