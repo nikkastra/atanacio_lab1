@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% block title %} Keys {% endblock %}
+{% block title %} This Week {% endblock %}
 {% block styles %}
 	<link rel="stylesheet" href="{% static 'css/styles.css' %}" type='text/css'>
 {% endblock %}
@@ -10,37 +10,24 @@
     <h1> This Week </h1>
     	<p> 03.29.MON - 04.04.SUN </p>
     		<ul>
-    		{% if the_tasks %}
-				{% for x in the_tasks %}
-					{{forloop.counter}}
-					<li>
-						{{x}}
-						<button type='button' onclick='document.getElementById("edit").open="open"'>Edit</button>
-						<button type='button' onclick='document.getElementById("delete").open="open"'>Delete</button>
-					</li>
+			{% if object_list %}
+				{% for Tasks in object_list %}
+					{% if Tasks.key.key == "Task" %}
+						<li>
+							<span id="{{forloop.counter}}">{{Tasks.key.key}} : {{Tasks.task}} </span>
+							<a href="{{Tasks.get_absolute_url}}"><button type='button'> Edit </button></a>
+							<a href="{{Tasks.get_absolute_url}}"><button type='button'> Delete </button></a>
+							<button type='button' onclick='document.getElementById("{{forloop.counter}}").innerHTML="Task Done"'> Mark as Done </button>
+						</li>
+					{% else %}
+						<li>
+							{{Tasks.key.key}} : {{Tasks.task}}
+							<a href="{{Tasks.get_absolute_url}}"><button type='button'> Edit </button></a>
+							<a href="{{Tasks.get_absolute_url}}"><button type='button'> Delete </button></a>
+						</li>
+					{% endif %}
 				{% endfor %}
 			{% endif %}
 			</ul>
-		<button type='button' onclick='document.getElementById("add").open="open"'>Add Item</button>
-		<dialog id="add">
-	    	<form action='{% url "thisweek" %}' method='post'>
-	    		{% csrf_token %}
-	    		{{form1}}
-	    		<input type="Submit" value="Add Task">
-	    	</form>
-    	</dialog>
-    	<dialog id="edit">
-	    	<form action='{% url "thisweek" %}' method='post'>
-	    		{% csrf_token %}
-	    		{{form2}}
-	    		<input type="Submit" value="Update">
-	    	</form>
-    	</dialog>
-    	<dialog id="delete">
-	    	<form action='{% url "thisweek" %}' method='post'>
-	    		{% csrf_token %}
-	    		{{form}}
-	    		<input type="Submit" value="Add Task">
-	    	</form>
-    	</dialog>
+		<a href ="{% url 'addtask' %}"><button type='button'>Add Item</button></a>
 {% endblock %}

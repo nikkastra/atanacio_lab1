@@ -4,9 +4,9 @@
 {% block content %}
 <ul>
 	{% if object_list %}
-	{% for name in object_list %}
+	{% for Name in object_list %}
 		<li>
-			<a href="{{Name.get_absolute_url}}">{{Name.name}}</a>
+			<a href="{{Name.get_absolute_url}}"> {{Name.name}}</a>
 		</li>
 	{% endfor %}
 	{% else %}

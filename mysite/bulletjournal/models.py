@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 
 class Name(models.Model):
 	name = models.CharField(max_length=100, unique=True, default="test")
@@ -11,7 +11,7 @@ class Name(models.Model):
 		return '{} {} {}'.format(self.name, self.nickname, self.bio)
 
 	def get_absolute_url(self):
-		return reverse('name_detail', args=[str(self.pk)])
+		return reverse('name_detail', args=[str(self.id)])
 
 	@property
 	def is_tutorial(self):
@@ -33,3 +33,18 @@ class Tasks(models.Model):
 
 	def __str__(self):
 		return '{}: {}'.format(self.key, self.task)
+
+	def get_absolute_url(self):
+		return reverse('task_detail', args=[str(self.id)])
+
+
+class Today(models.Model):
+	name = models.ForeignKey(Name, on_delete=models.CASCADE)
+	key = models.ForeignKey(Key, on_delete=models.CASCADE)
+	task = models.CharField(max_length=100)
+
+	def __str__(self):
+		return '{}: {}'.format(self.key, self.task)
+
+	def get_absolute_url(self):
+		return reverse('today_detail', args=[str(self.id)])

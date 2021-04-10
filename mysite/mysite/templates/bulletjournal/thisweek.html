@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %} This Week {% endblock %}
+{% block styles %}
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}" type='text/css'>
+{% endblock %}
+
+{% block content %}
+    <h1> This Week </h1>
+    	<p> 03.29.MON - 04.04.SUN </p>
+    		<ul>
+			{% if object_list %}
+				{% for Tasks in object_list %}
+					<li>
+						{{Tasks.key.key}} : {{Tasks.task}}
+						<button type='button' onclick='document.getElementById("edit").open="open"'> Edit </button>
+						<button type='button' onclick='document.getElementById("delete").open="open"'> Delete </button>
+						{% if Tasks.key.key == "Task" %}
+							<button type='button' onclick='document.getElementById("mark").open="open"'> Mark as Done </button>
+						{% endif %}
+					</li>
+				{% endfor %}
+			{% endif %}
+			</ul>
+		<a href ="{% url 'addtask' %}"><button type='button'>Add Item</button></a>
+    	<dialog id="edit">
+	    	<form action='{% url "thisweek" %}' method='post'>
+	    		{% csrf_token %}
+	    		{{form2}}
+	    		<input type="Submit" value="Update">
+	    	</form>
+    	</dialog>
+    	<dialog id="delete">
+	    	<form action='{% url "thisweek" %}' method='post'>
+	    		{% csrf_token %}
+	    		{{form}}
+	    		<input type="Submit" value="Add Task">
+	    	</form>
+    	</dialog>
+{% endblock %}

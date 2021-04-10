@@ -1,0 +1,12 @@
+{% extends 'today.html' %}
+
+{% block title %}Add Today{% endblock %}
+
+{% block content %}
+	<form action='{% url "addtoday" %}' method='post'>
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type='submit' value='Add'>
+	</form>
+
+{% endblock %}

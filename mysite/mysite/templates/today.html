@@ -1,13 +1,33 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% block title %} Keys {% endblock %}
+{% block title %} Today {% endblock %}
 {% block styles %}
 	<link rel="stylesheet" href="{% static 'css/styles.css' %}" type='text/css'>
 {% endblock %}
 
 {% block content %}
     <h1> Today </h1>
-    	<p> 03.30.TUES </p>
-    	<p> ● lab 1 bujo </p>
+    	<p> 04.10 SAT </p>
+    		<ul>
+			{% if object_list %}
+				{% for Today in object_list %}
+					{% if Today.key.key == "Task" %}
+						<li>
+							<span id="{{forloop.counter}}">{{Today.key.key}} : {{Today.task}} </span>
+							<a href="{{Today.get_absolute_url}}"><button type='button'> Edit </button></a>
+							<a href="{{Today.get_absolute_url}}"><button type='button'> Delete </button></a>
+							<button type='button' onclick='document.getElementById("{{forloop.counter}}").innerHTML="Task Done"'> Mark as Done </button>
+						</li>
+					{% else %}
+						<li>
+							{{Today.key.key}} : {{Today.task}}
+							<a href="{{Today.get_absolute_url}}"><button type='button'> Edit </button></a>
+							<a href="{{Today.get_absolute_url}}"><button type='button'> Delete </button></a>
+						</li>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+			</ul>
+		<a href ="{% url 'addtoday' %}"><button type='button'>Add Item</button></a>
 {% endblock %}

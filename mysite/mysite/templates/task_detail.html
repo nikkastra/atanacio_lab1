@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.task }}{% endblock %}
+
+{% block content %}
+	<h1>{{ object.key }} : {{ object.task }}</h1>
+	<p> sigurado ka? </p>
+	<form action="{% url 'update' %}?the_task=object" method="post">
+		<input id='tago' type="submit" value="Yes">
+	</form>
+	<a href = "{% url 'thisweek' %}"><button type=button> No </button></a>
+{% endblock %}

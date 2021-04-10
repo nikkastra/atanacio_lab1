@@ -1,0 +1,12 @@
+{% extends 'thisweek.html' %}
+
+{% block title %}Add Task{% endblock %}
+
+{% block content %}
+	<form action='{% url "addtask" %}' method='post'>
+		{% csrf_token %}
+		{{form.as_p}}
+		<input type='submit' value='Add'>
+	</form>
+
+{% endblock %}

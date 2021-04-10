@@ -31,6 +31,7 @@ class Task(forms.ModelForm):
 		fields = ['key', 'task']
 
 
-class EditTask(forms.Form):
-
-	edittask = forms.CharField(label='', max_length=100, required=False)
+class Today(forms.ModelForm):
+	class Meta:
+		model = Today
+		fields = ['key', 'task']

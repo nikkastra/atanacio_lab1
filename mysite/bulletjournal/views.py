@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import *
+from django.urls import *
+from django.shortcuts import redirect
 
 from .forms import *
 from .models import *
@@ -17,8 +20,22 @@ class NameListView(ListView):
 	model = Name
 
 
-class NameDetailView(DetailView):
-	model = Name
+class TaskDetailView(DetailView):
+	model = Tasks
+
+
+class TaskListView(ListView):
+	model = Tasks
+	template_name = 'thisweek.html'
+
+
+class TodayListView(ListView):
+	model = Today
+	template_name = 'today.html'
+
+
+class TodayDetailView(DetailView):
+	model = Today
 
 
 class HomePageView(View):
@@ -109,40 +126,34 @@ def key(request):
 
 
 def thisweek(request):
-	this_dict = {}
-	new_task = ''
 	if request.method == 'POST':
-		form1 = Task(request.POST)
-		form2 = EditTask(request.POST)
-		if form1.is_valid() or form2.is_valid():
-			x = ''
-			for y in request.POST:
-				x = y
-			if x == 'task':
-				new_task = Tasks(name=Name.objects.get(name=name_dict['name']), key=form1.cleaned_data['key'], task=form1.cleaned_data['task'])
-				new_task.save()
-				the_tasks = [str(x) for x in Tasks.objects.all()]
-				this_dict['form1'] = form1
-				this_dict['form2'] = form2
-				this_dict['the_tasks'] = the_tasks
-				return render(request, 'thisweek.html', this_dict)
-			elif x == 'edittask':
-				new_task.task = request.POST['edittask']
-				new_task.save()
-				the_tasks = [str(x) for x in Tasks.objects.all()]
-				this_dict['form1'] = form1
-				this_dict['form2'] = form2
-				this_dict['the_tasks'] = the_tasks
-				return render(request, 'thisweek.html', this_dict)
+		form = Task(request.POST)
+		if form.is_valid():
+			new_task = Tasks(name=Name.objects.get(name=name_dict['name']), key=form.cleaned_data['key'], task=form.cleaned_data['task'])
+			new_task.save()
+			return redirect('thisweek')
 	else:
-		form1 = Task()
-		form2 = EditTask()
-		the_tasks = [str(x) for x in Tasks.objects.all()]
-		this_dict['form1'] = form1
-		this_dict['form2'] = form2
-		this_dict['the_tasks'] = the_tasks
-	return render(request, 'thisweek.html', this_dict)
+		form = Task()
+	return render(request, 'addtask.html', {'form': form})
+
+def delete_task(request):
+	if request.method == 'POST':
+		form = Task(request.POST)
+		if form.is_valid():
+			the_task.delete()
+			return redirect('thisweek')
+	else:
+		form = Task()
+	return render(request, 'task_detail', {'form': form})
 
 
 def today(request):
-	return render(request, 'today.html')
+	if request.method == 'POST':
+		form = Today(request.POST)
+		if form.is_valid():
+			new_task = Today(name=Name.objects.get(name=name_dict['name']), key=form.cleaned_data['key'], task=form.cleaned_data['task'])
+			new_task.save()
+			return redirect('today')
+	else:
+		form = Today()
+	return render(request, 'addtoday.html', {'form': form})
